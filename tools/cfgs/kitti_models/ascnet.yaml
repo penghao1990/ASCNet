@@ -2,8 +2,6 @@ CLASS_NAMES: ['Car', 'Pedestrian', 'Cyclist']
 
 DATA_CONFIG: 
     _BASE_CONFIG_: /media/penghao/DATA2/AD/openpcdetrnn-0827/tools/cfgs/dataset_configs/kitti_dataset.yaml
-    # POINT_CLOUD_RANGE:  [0, -40, -3, 70.4, 40, 1]
-    # POINT_CLOUD_RANGE: [0, -32.0, -3, 52.8, 32.0, 1]
     POINT_CLOUD_RANGE: [0, -39.68, -3, 69.12, 39.68, 1]
     DATA_PROCESSOR:
         - NAME: mask_points_and_boxes_outside_range
@@ -24,7 +22,6 @@ DATA_CONFIG:
           }
     DATA_AUGMENTOR:
         DISABLE_AUG_LIST: ['placeholder']
-        # DISABLE_AUG_LIST: ['gt_sampling']
         AUG_CONFIG_LIST:
             - NAME: gt_sampling
               USE_ROAD_PLANE: True
@@ -60,15 +57,6 @@ MODEL:
         USE_NORM: False
         NUM_FILTERS: [32]
 
-#        POINT_SOURCE: raw_points
-#        SAMPLE_METHOD: FPS
-#        NUM_KEYPOINTS: 10000
-
-        # POINT_ORI:
-        #     MLPS: [[64, 64], [64, 64]]
-        #     POOL_RADIUS: [0.25, 0.5]
-        #     NSAMPLE: [16, 16]
-
         POINT_FE:
             MLPS: [[32, 32], [32, 32]]
             POOL_RADIUS: [0.25, 0.5]
@@ -80,11 +68,6 @@ MODEL:
 
     BACKBONE_2D:
         NAME: BaseBEVBackboneASCNet
-#         LAYER_NUMS: [3, 5, 5]
-#         LAYER_STRIDES: [2, 2, 2]
-#         NUM_FILTERS: [64, 128, 256]
-#         UPSAMPLE_STRIDES: [1, 2, 4]
-#         NUM_UPSAMPLE_FILTERS: [256, 256, 256]
 
     DENSE_HEAD:
         NAME: AnchorHeadSingle
@@ -95,9 +78,6 @@ MODEL:
         DIR_LIMIT_OFFSET: 0.0
         NUM_DIR_BINS: 2
         VOXEL_SIZE: [0.16, 0.16, 4]
-
-        # USE_MULTIHEAD: True
-        # SEPARATE_MULTIHEAD: False
 
         ANCHOR_GENERATOR_CONFIG: [
             {
@@ -132,22 +112,6 @@ MODEL:
             }
         ]
 
-        # SHARED_CONV_NUM_FILTER: 64
-        # RPN_HEAD_CFGS: [
-        #     {
-        #         'HEAD_CLS_NAME': ['Car'],
-        #         'IN_CHANNEL': 64,
-        #     },
-        #     {
-        #         'HEAD_CLS_NAME': ['Pedestrian'],
-        #         'IN_CHANNEL': 64,
-        #     },
-        #     {
-        #         'HEAD_CLS_NAME': ['Cyclist'],
-        #         'IN_CHANNEL': 64,
-        #     }
-        # ]
-
         TARGET_ASSIGNER_CONFIG:
             NAME: AxisAlignedTargetAssigner
             POS_FRACTION: -1.0
@@ -159,8 +123,6 @@ MODEL:
         LOSS_CONFIG:
             LOSS_WEIGHTS: {
                 'cls_weight': 1.0,
-                # 'score_weight': 0.01,
-                # 'center_weight': 2.0,
                 'loc_weight': 2.0,
                 'dir_weight': 0.2,
                 'code_weights': [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
@@ -172,7 +134,6 @@ MODEL:
 
         SHARED_FC: [256, 64]
         P_FC: [256, 64]
-        # REG_FC: [256, 64]
         DP_RATIO: 0.3
 
         NMS_CONFIG:
@@ -238,7 +199,7 @@ MODEL:
 
 OPTIMIZATION:
     BATCH_SIZE_PER_GPU: 4
-    NUM_EPOCHS: 80
+    NUM_EPOCHS: 60
 
     OPTIMIZER: adam_onecycle
     LR: 0.001
