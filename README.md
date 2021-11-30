@@ -6,7 +6,10 @@ ASCNet:3D object detection from point cloud  based on adaptive spatial context f
 ## Results on KITTI test set
 
 [Submission link](http://www.cvlibs.net/datasets/kitti/eval_object_detail.php?&result=2ebb102bbe17b89131b8997bfc5e259910428e70)
-![](https://github.com/penghao1990/ASCNet/blob/main/doc/KITTI_test.png {height="50%" width="50%"})
+
+<img src="https://github.com/penghao1990/ASCNet/blob/main/doc/KITTI_test.png" height="50%" width="50%"/>
+
+<!-- ![](https://github.com/penghao1990/ASCNet/blob/main/doc/KITTI_test.png {height="50%" width="50%"}) -->
 
 ## Results on KITTI val split
 ```
